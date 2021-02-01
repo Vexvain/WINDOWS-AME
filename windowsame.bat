@@ -113,7 +113,6 @@ reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo" /v Enab
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\AppHost" /v EnableWebContentEvaluation /t REG_DWORD /d 0 /f > NUL 2>&1
 reg add "HKCU\Control Panel\International\User Profile" /v HttpAcceptLanguageOptOut /t REG_DWORD /d 1 /f > NUL 2>&1
 reg add "HKCU\Software\Policies\Microsoft\Windows\Explorer" /v DisableNotificationCenter /t REG_DWORD /d 1 /f > NUL 2>&1
-reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\ImmersiveShell" /v UseActionCenterExperience /t REG_DWORD /d 0 /f > NUL 2>&1
 reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v HideSCAHealth /t REG_DWORD /d 0x1 /f > NUL 2>&1
 
 :: Enables All Folders in Explorer Navigation Panel
@@ -240,7 +239,6 @@ PowerShell -Command "Get-AppxPackage *WindowsAlarms* | Remove-AppxPackage"
 PowerShell -Command "Get-AppxPackage *WindowsCamera* | Remove-AppxPackage"
 PowerShell -Command "Get-AppxPackage *bing* | Remove-AppxPackage"
 PowerShell -Command "Get-AppxPackage *Sticky* | Remove-AppxPackage"
-PowerShell -Command "Get-AppxPackage *Store* | Remove-AppxPackage"
 PowerShell -Command "Get-AppxPackage *MicrosoftOfficeHub* | Remove-AppxPackage"
 PowerShell -Command "Get-AppxPackage *ECApp* | Remove-AppxPackage"
 PowerShell -Command "Get-AppxPackage *MSPaint* | Remove-AppxPackage"

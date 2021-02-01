@@ -122,7 +122,7 @@ awk '{ print length($0) " " $0; }' dirs_deduped.txt | sort -n | cut -d ' ' -f 2-
 # creates removal script
 awk -v quote='"' '{print "rm -rf " quote $0 quote}' fzf_list_cleaned.txt > remove.sh
 echo 'rm -rf "Program Files/Internet Explorer"' | cat - remove.sh > temp && mv temp remove.sh
-#echo 'rm -rf "Program Files/WindowsApps"' | cat - remove.sh > temp && mv temp remove.sh
+echo 'rm -rf "Program Files/WindowsApps"' | cat - remove.sh > temp && mv temp remove.sh
 echo 'rm -rf "Program Files/Windows Defender"' | cat - remove.sh > temp && mv temp remove.sh
 echo 'rm -rf "Program Files/Windows Mail"' | cat - remove.sh > temp && mv temp remove.sh
 echo 'rm -rf "Program Files (x86)/Internet Explorer"' | cat - remove.sh > temp && mv temp remove.sh

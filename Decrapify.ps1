@@ -97,12 +97,12 @@ Set-ItemProperty -Path "HKCU:\Software\Microsoft\InputPersonalization\TrainedDat
 # Remove-ItemProperty -Path "HKCU:\Software\Microsoft\InputPersonalization\TrainedDataStore" -Name "HarvestContacts"
 
 # Restrict Windows Update P2P only to local network
-Write-Host "Restricting Windows Update P2P only to local network..."
-Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config" -Name "DODownloadMode" -Type DWord -Value 1
-If (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\DeliveryOptimization")) {
-	New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\DeliveryOptimization" | Out-Null
-}
-Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\DeliveryOptimization" -Name "SystemSettingsDownloadMode" -Type DWord -Value 3
+# Write-Host "Restricting Windows Update P2P only to local network..."
+# Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config" -Name "DODownloadMode" -Type DWord -Value 1
+# If (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\DeliveryOptimization")) {
+#	New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\DeliveryOptimization" | Out-Null
+# }
+# Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\DeliveryOptimization" -Name "SystemSettingsDownloadMode" -Type DWord -Value 3
 
 # Unrestrict Windows Update P2P
 # Remove-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config" -Name "DODownloadMode"
@@ -157,8 +157,8 @@ Set-Service "DiagTrack" -StartupType Disabled
 # Set-NetFirewallProfile -Profile * -Enabled True
 
 # Disable Windows Defender
-# Write-Host "Disabling Windows Defender..."
-# Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows Defender" -Name "DisableAntiSpyware" -Type DWord -Value 1
+Write-Host "Disabling Windows Defender..."
+Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows Defender" -Name "DisableAntiSpyware" -Type DWord -Value 1
 
 # Enable Windows Defender
 # Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows Defender" -Name "DisableAntiSpyware"
@@ -183,8 +183,8 @@ Set-Service "HomeGroupProvider" -StartupType Disabled
 # Start-Service "HomeGroupProvider"
 
 # Disable Remote Assistance
-# Write-Host "Disabling Remote Assistance..."
-# Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Remote Assistance" -Name "fAllowToGetHelp" -Type DWord -Value 0
+Write-Host "Disabling Remote Assistance..."
+Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Remote Assistance" -Name "fAllowToGetHelp" -Type DWord -Value 0
 
 # Enable Remote Assistance
 # Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Remote Assistance" -Name "fAllowToGetHelp" -Type DWord -Value 1
@@ -291,8 +291,8 @@ Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer
 # Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideFileExt" -Type DWord -Value 1
 
 # Show hidden files
-# Write-Host "Showing hidden files..."
-# Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Hidden" -Type DWord -Value 1
+Write-Host "Showing hidden files..."
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Hidden" -Type DWord -Value 1
 
 # Hide hidden files
 # Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Hidden" -Type DWord -Value 2
@@ -395,28 +395,28 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" -Nam
 # Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" -Name "DisableFileSyncNGSC"
 
 # Uninstall OneDrive (WINDOWS WILL NOT SYSPREP WITHOUT IT!)
-# Write-Host "Uninstalling OneDrive..."
-# Stop-Process -Name OneDrive -ErrorAction SilentlyContinue
-# Start-Sleep -s 3
-# $onedrive = "$env:SYSTEMROOT\SysWOW64\OneDriveSetup.exe"
-# If (!(Test-Path $onedrive)) {
-# 	$onedrive = "$env:SYSTEMROOT\System32\OneDriveSetup.exe"
-# }
-# Start-Process $onedrive "/uninstall" -NoNewWindow -Wait
-# Start-Sleep -s 3
-# Stop-Process -Name explorer -ErrorAction SilentlyContinue
-# Start-Sleep -s 3
-# Remove-Item "$env:USERPROFILE\OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
-# Remove-Item "$env:LOCALAPPDATA\Microsoft\OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
-# Remove-Item "$env:PROGRAMDATA\Microsoft OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
-# If (Test-Path "$env:SYSTEMDRIVE\OneDriveTemp") {
-# 	Remove-Item "$env:SYSTEMDRIVE\OneDriveTemp" -Force -Recurse -ErrorAction SilentlyContinue
-# }
-# If (!(Test-Path "HKCR:")) {
-# 	New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
-# }
-# Remove-Item -Path "HKCR:\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse -ErrorAction SilentlyContinue
-# Remove-Item -Path "HKCR:\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse -ErrorAction SilentlyContinue
+Write-Host "Uninstalling OneDrive..."
+Stop-Process -Name OneDrive -ErrorAction SilentlyContinue
+Start-Sleep -s 3
+$onedrive = "$env:SYSTEMROOT\SysWOW64\OneDriveSetup.exe"
+If (!(Test-Path $onedrive)) {
+ 	$onedrive = "$env:SYSTEMROOT\System32\OneDriveSetup.exe"
+ }
+ Start-Process $onedrive "/uninstall" -NoNewWindow -Wait
+ Start-Sleep -s 3
+ Stop-Process -Name explorer -ErrorAction SilentlyContinue
+ Start-Sleep -s 3
+ Remove-Item "$env:USERPROFILE\OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
+ Remove-Item "$env:LOCALAPPDATA\Microsoft\OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
+ Remove-Item "$env:PROGRAMDATA\Microsoft OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
+ If (Test-Path "$env:SYSTEMDRIVE\OneDriveTemp") {
+ 	Remove-Item "$env:SYSTEMDRIVE\OneDriveTemp" -Force -Recurse -ErrorAction SilentlyContinue
+ }
+ If (!(Test-Path "HKCR:")) {
+ 	New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
+ }
+ Remove-Item -Path "HKCR:\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse -ErrorAction SilentlyContinue
+ Remove-Item -Path "HKCR:\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse -ErrorAction SilentlyContinue
 
 # Install OneDrive
 # $onedrive = "$env:SYSTEMROOT\SysWOW64\OneDriveSetup.exe"
@@ -439,17 +439,17 @@ Get-AppxPackage "Microsoft.Office.OneNote" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.People" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.SkypeApp" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.Windows.Photos" | Remove-AppxPackage
-# Get-AppxPackage "Microsoft.WindowsAlarms" | Remove-AppxPackage
-# Get-AppxPackage "Microsoft.WindowsCamera" | Remove-AppxPackage
+Get-AppxPackage "Microsoft.WindowsAlarms" | Remove-AppxPackage
+Get-AppxPackage "Microsoft.WindowsCamera" | Remove-AppxPackage
 Get-AppxPackage "microsoft.windowscommunicationsapps" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.WindowsMaps" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.WindowsPhone" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.WindowsSoundRecorder" | Remove-AppxPackage
-Get-AppxPackage "Microsoft.XboxApp" | Remove-AppxPackage
+# Get-AppxPackage "Microsoft.XboxApp" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.ZuneMusic" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.ZuneVideo" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.AppConnector" | Remove-AppxPackage
-Get-AppxPackage "Microsoft.ConnectivityStore" | Remove-AppxPackage
+# Get-AppxPackage "Microsoft.ConnectivityStore" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.Office.Sway" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.Messaging" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.CommsPhone" | Remove-AppxPackage
@@ -459,11 +459,11 @@ Get-AppxPackage "Microsoft.WindowsFeedbackHub" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.Wallet" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.ScreenSketch" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.GetHelp" | Remove-AppxPackage
-Get-AppxPackage "Microsoft.Xbox.TCUI" | Remove-AppxPackage
-Get-AppxPackage "Microsoft.XboxGameOverlay" | Remove-AppxPackage
-Get-AppxPackage "Microsoft.XboxSpeechToTextOverlay" | Remove-AppxPackage
+# Get-AppxPackage "Microsoft.Xbox.TCUI" | Remove-AppxPackage
+# Get-AppxPackage "Microsoft.XboxGameOverlay" | Remove-AppxPackage
+# Get-AppxPackage "Microsoft.XboxSpeechToTextOverlay" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.MixedReality.Portal" | Remove-AppxPackage
-Get-AppBackgroundTask "Microsoft.XboxIdentityProvider" | Remove-AppPackage
+# Get-AppBackgroundTask "Microsoft.XboxIdentityProvider" | Remove-AppPackage
 
 
 # Install default Microsoft applications
@@ -566,17 +566,17 @@ $services = @(
     "MapsBroker"                               # Downloaded Maps Manager
     "NetTcpPortSharing"                        # Net.Tcp Port Sharing Service
     "RemoteAccess"                             # Routing and Remote Access
-    # "RemoteRegistry"                         # Remote Registry
+    #"RemoteRegistry"                          # Remote Registry
     "SharedAccess"                             # Internet Connection Sharing (ICS)
     "TrkWks"                                   # Distributed Link Tracking Client
-    # "WbioSrvc"                               # Windows Biometric Service (required for Fingerprint reader / facial detection)
-    #"WlanSvc"                                 # WLAN AutoConfig
+    "WbioSrvc"                                 # Windows Biometric Service (required for Fingerprint reader / facial detection)
+    "WlanSvc"                                  # WLAN AutoConfig
     "WMPNetworkSvc"                            # Windows Media Player Network Sharing Service
-    #"wscsvc"                                  # Windows Security Center Service
+    "wscsvc"                                   # Windows Security Center Service
     #"WSearch"                                 # Windows Search
-    "XblAuthManager"                           # Xbox Live Auth Manager
-    "XblGameSave"                              # Xbox Live Game Save Service
-    "XboxNetApiSvc"                            # Xbox Live Networking Service
+    #"XblAuthManager"                           # Xbox Live Auth Manager
+    #"XblGameSave"                              # Xbox Live Game Save Service
+    #"XboxNetApiSvc"                            # Xbox Live Networking Service
     "ndu"                                      # Windows Network Data Usage Monitor
     # Services which cannot be disabled
     #"WdNisSvc"
@@ -620,7 +620,7 @@ takeown /F "$env:WinDIR\System32\MusNotificationUx.exe"
 icacls "$env:WinDIR\System32\MusNotificationUx.exe" /deny "$($EveryOne):(X)"
 
 
-# This script removes unwanted Apps that come with Windows. If you  do not want
+# This script removes unwanted Apps that come with Windows. If you do not want
 # to remove certain Apps comment out the corresponding lines below.
 
 Import-Module -DisableNameChecking $PSScriptRoot\..\lib\take-own.psm1
@@ -648,7 +648,7 @@ $apps = @(
     "Microsoft.MixedReality.Portal"
     "Microsoft.MicrosoftPowerBIForWindows"
     "Microsoft.MicrosoftSolitaireCollection"
-    #"Microsoft.MicrosoftStickyNotes"
+    "Microsoft.MicrosoftStickyNotes"
     "Microsoft.MinecraftUWP"
     "Microsoft.NetworkSpeedTest"
     "Microsoft.Office.OneNote"
@@ -657,26 +657,26 @@ $apps = @(
     "Microsoft.SkypeApp"
     "Microsoft.Wallet"
     # "Microsoft.Windows.Photos"
-    # "Microsoft.WindowsAlarms"
-    # "Microsoft.WindowsCalculator"
-    # "Microsoft.WindowsCamera"
-    "microsoft.windowscommunicationsapps"
+    "Microsoft.WindowsAlarms"
+    "Microsoft.WindowsCalculator"
+    "Microsoft.WindowsCamera"
+    "Microsoft.windowscommunicationsapps"
     "Microsoft.WindowsMaps"
     "Microsoft.WindowsPhone"
     "Microsoft.WindowsSoundRecorder"
     #"Microsoft.WindowsStore"   # can't be re-installed
-    "Microsoft.Xbox.TCUI"
-    "Microsoft.XboxApp"
-    "Microsoft.XboxGameOverlay"
-    "Microsoft.XboxGamingOverlay"
-    "Microsoft.XboxSpeechToTextOverlay"
+    #"Microsoft.Xbox.TCUI"
+    #"Microsoft.XboxApp"
+    #"Microsoft.XboxGameOverlay"
+    #"Microsoft.XboxGamingOverlay"
+    #"Microsoft.XboxSpeechToTextOverlay"
     "Microsoft.YourPhone"
     "Microsoft.ZuneMusic"
     "Microsoft.ZuneVideo"
     "Microsoft.Windows.CloudExperienceHost"
     "Microsoft.Windows.ContentDeliveryManager"
     "Microsoft.Windows.PeopleExperienceHost"
-    "Microsoft.XboxGameCallableUI"
+    #"Microsoft.XboxGameCallableUI"
 
     # Threshold 2 apps
     "Microsoft.CommsPhone"
@@ -700,8 +700,8 @@ $apps = @(
 
     # Redstone 5 apps
     "Microsoft.MixedReality.Portal"
-    "Microsoft.ScreenSketch"
-    "Microsoft.XboxGamingOverlay"
+    #"Microsoft.ScreenSketch"
+    #"Microsoft.XboxGamingOverlay"
     "Microsoft.YourPhone"
 
     # non-Microsoft
@@ -735,7 +735,7 @@ $apps = @(
     "ShazamEntertainmentLtd.Shazam"
     "SlingTVLLC.SlingTV"
     "SpotifyAB.SpotifyMusic"
-    #"TheNewYorkTimes.NYTCrossword"
+    "TheNewYorkTimes.NYTCrossword"
     "ThumbmunkeysLtd.PhototasticCollage"
     "TuneIn.TuneInRadio"
     "WinZipComputing.WinZipUniversal"
@@ -837,7 +837,6 @@ mkdir -Force "HKCR:\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}"
 Set-ItemProperty -Path "HKCR:\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" "System.IsPinnedToNameSpaceTree" 0
 Remove-PSDrive "HKCR"
 
-# Thank you Matthew Israelsson
 Write-Output "Removing run hook for new users"
 reg load "hku\Default" "C:\Users\Default\NTUSER.DAT"
 reg delete "HKEY_USERS\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
@@ -944,9 +943,9 @@ foreach ($regAlias in $regAliases){
 Stop-Process -name explorer
 
 # Uncomment the next line to make clean start menu default for all new users
-Import-StartLayout -LayoutPath $layoutFile -MountPath $env:SystemDrive\
+#Import-StartLayout -LayoutPath $layoutFile -MountPath $env:SystemDrive\
 
-Remove-Item $layoutFile
+#Remove-Item $layoutFile
 
 
 # Prevents SYSPREP from freezing at "Getting Ready" on first boot                          #

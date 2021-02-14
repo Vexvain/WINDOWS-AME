@@ -1,5 +1,5 @@
-:: Windows 10 AME BATCH Script
-:: v2004.2020.11.3
+:: Windows 10 AME 
+:: VEXVAIN
 
 @echo off
 pushd "%~dp0"
@@ -134,6 +134,31 @@ reg delete "HKLM\SOFTWARE\Classes\SystemFileAssociations\.tiff\Shell\3D Edit" /f
 cls
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Attachments" /v SaveZoneInformation /t REG_DWORD /d 1 /f > NUL 2>&1
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Attachments" /v SaveZoneInformation /t REG_DWORD /d 1 /f > NUL 2>&1
+
+:: Disables Bing Search in Start Menu
+cls
+PowerShell -Command "Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" -Name "BingSearchEnabled" -Type DWord -Value 0"
+
+:: Disables Location Tracking
+cls
+PowerShell -Command "Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Sensor\Overrides\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}" -Name "SensorPermissionState" -Type DWord -Value 0"
+PowerShell -Command "Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Services\lfsvc\Service\Configuration" -Name "Status" -Type DWord -Value 0"
+
+:: Disable Feedback
+cls
+PowerShell -Command "Set-ItemProperty -Path "HKCU:\Software\Microsoft\Siuf\Rules" -Name "NumberOfSIUFInPeriod" -Type DWord -Value 0"
+
+:: Disable Automatic Update
+cls
+PowerShell -Command "Set-ItemProperty -Path "HKLM:\Software\Microsoft\WindowsUpdate\UX\Settings" -Name "UxOption" -Type DWord -Value 1"
+
+:: Disable Remote Assistance
+cls
+PowerShell -Command "Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Remote Assistance" -Name "fAllowToGetHelp" -Type DWord -Value 0"
+
+:: Show Hidden Files
+cls
+PowerShell -Command "Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Hidden" -Type DWord -Value 1"
 
 :: Disables SmartScreen
 cls
@@ -271,6 +296,37 @@ PowerShell -Command "Get-AppxPackage *Sway* | Remove-AppxPackage"
 PowerShell -Command "Get-AppxPackage *CommsPhone* | Remove-AppxPackage"
 PowerShell -Command "Get-AppxPackage *Microsoft.Messaging* | Remove-AppxPackage"
 PowerShell -Command "Get-AppxPackage *ContentDeliveryManager* | Remove-AppxPackage"
+PowerShell -Command "Get-AppxPackage *Microsoft.3DBuilder* | Remove-AppxPackage"
+PowerShell -Command "Get-AppxPackage *Microsoft.BingFinance* | Remove-AppxPackage"
+PowerShell -Command "Get-AppxPackage *Microsoft.BingNews* | Remove-AppxPackage"
+PowerShell -Command "Get-AppxPackage *Microsoft.BingSports* | Remove-AppxPackage"
+PowerShell -Command "Get-AppxPackage *Microsoft.BingWeather* | Remove-AppxPackage"
+PowerShell -Command "Get-AppxPackage *Microsoft.Getstarted* | Remove-AppxPackage"
+PowerShell -Command "Get-AppxPackage *Microsoft.MicrosoftOfficeHub* | Remove-AppxPackage"
+PowerShell -Command "Get-AppxPackage *Microsoft.MicrosoftSolitaireCollection* | Remove-AppxPackage"
+PowerShell -Command "Get-AppxPackage *Microsoft.Office.OneNote* | Remove-AppxPackage"
+PowerShell -Command "Get-AppxPackage *Microsoft.People* | Remove-AppxPackage"
+PowerShell -Command "Get-AppxPackage *Microsoft.SkypeApp* | Remove-AppxPackage"
+PowerShell -Command "Get-AppxPackage *Microsoft.WindowsAlarms* | Remove-AppxPackage"
+PowerShell -Command "Get-AppxPackage *Microsoft.WindowsCamera* | Remove-AppxPackage"
+PowerShell -Command "Get-AppxPackage *microsoft.windowscommunicationsapps* | Remove-AppxPackage"
+PowerShell -Command "Get-AppxPackage *Microsoft.WindowsMaps* | Remove-AppxPackage"
+PowerShell -Command "Get-AppxPackage *Microsoft.WindowsPhone* | Remove-AppxPackage"
+PowerShell -Command "Get-AppxPackage *Microsoft.WindowsSoundRecorder* | Remove-AppxPackage"
+PowerShell -Command "Get-AppxPackage *Microsoft.ZuneMusic* | Remove-AppxPackage"
+PowerShell -Command "Get-AppxPackage *Microsoft.ZuneVideo* | Remove-AppxPackage"
+PowerShell -Command "Get-AppxPackage *Microsoft.Office.Sway* | Remove-AppxPackage"
+PowerShell -Command "Get-AppxPackage *Microsoft.Messaging* | Remove-AppxPackage"
+PowerShell -Command "Get-AppxPackage *Microsoft.CommsPhone* | Remove-AppxPackage"
+PowerShell -Command "Get-AppxPackage *king.com.CandyCrushSodaSaga* | Remove-AppxPackage"
+
+:: Uninstall Work Folders Client
+cls
+PowerShell -Command "dism /online /Disable-Feature /FeatureName:WorkFolders-Client /Quiet /NoRestart"
+
+:: Remove Pass Age Limit
+cls
+PowerShell -Command "net accounts /maxpwage:0"
 
 :: Disabling One Drive
 cls
@@ -450,7 +506,23 @@ cls
 powercfg /S 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
 powercfg /change monitor-timeout-ac 0
 
-@powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://git.io/JJ8R4'))"
+:: More AME Options
+cls
+PowerShell -NoProfile -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://git.io/JJ8R4'))"
+
+:: Windows Dark Mode
+cls
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes" /f
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes" /v "AppsUseLightTheme" /t "REG_DWORD" /d "0" /f
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes" /v "SystemUsesLightTheme" /t "REG_DWORD" /d "0" /f
+reg add "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes" /f
+reg add "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /f
+reg add "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "AppsUseLightTheme" /t "REG_DWORD" /d "0" /f
+reg add "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "SystemUsesLightTheme" /t "REG_DWORD" /d "0" /f
+reg add "HKEY_USERS\.DEFAULT\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes" /f
+reg add "HKEY_USERS\.DEFAULT\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /f
+reg add "HKEY_USERS\.DEFAULT\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "AppsUseLightTheme" /t "REG_DWORD" /d "0" /f
+reg add "HKEY_USERS\.DEFAULT\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "SystemUsesLightTheme" /t "REG_DWORD" /d "0" /f
 
 goto reboot
 
@@ -469,7 +541,7 @@ goto menu
 
 :reboot
 echo.
-echo  :: WINDOWS 10 AME SETUP SCRIPT Version 2020.11.3
+echo  :: WINDOWS 10 AME 
 echo.
 cls
 echo A reboot is required to complete setup.

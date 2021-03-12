@@ -319,53 +319,6 @@ PowerShell -Command "Get-AppxPackage *Microsoft.Office.Sway* | Remove-AppxPackag
 PowerShell -Command "Get-AppxPackage *Microsoft.Messaging* | Remove-AppxPackage"
 PowerShell -Command "Get-AppxPackage *Microsoft.CommsPhone* | Remove-AppxPackage"
 PowerShell -Command "Get-AppxPackage *king.com.CandyCrushSodaSaga* | Remove-AppxPackage"
-PowerShell -ExecutionPolicy Bypass -Command "$services = @(
-                                                            *diagnosticshub.standardcollector.service*
-							    *DiagTrack*
-							    *lfsvc*
-							    *MapsBroker*
-							    *TrkWks*
-							    *WbioSrvc*
-)
-
-foreach ($service in $services) {
-    Get-Service -Name $service | Set-Service -StartupType Disabled
-}"
-
-PowerShell -ExecutionPolicy Bypass -Command "$apps = @(
-                                                            *2FE3CB00.PicsArt-PhotoStudio*
-							    *46928bounde.EclipseManager*
-							    *4DF9E0F8.Netflix*
-							    *613EBCEA.PolarrPhotoEditorAcademicEdition*
-							    *6Wunderkinder.Wunderlist*
-							    *7EE7776C.LinkedInforWindows*
-							    *king.com.CandyCrushSodaSaga*
-							    *king.com.CandyCrushSaga*
-							    *king.com.BubbleWitch3Saga*
-							    *flaregamesGmbH.RoyalRevolt2*
-							    *XINGAG.XING*
-							    *WinZipComputing.WinZipUniversal*
-							    *TuneIn.TuneInRadio*
-							    *ThumbmunkeysLtd.PhototasticCollage*
-							    *SpotifyAB.SpotifyMusic*
-							    *SlingTVLLC.SlingTV*
-							    *PandoraMediaInc.29680B314EFC2*
-							    *KeeperSecurityInc.Keeper*
-							    *GAMELOFTSA.Asphalt8Airborne*
-							    *DolbyLaboratories.DolbyAccess*
-							    *DB6EA5DB.CyberLinkMediaSuiteEssentials*
-							    *D52A8D61.FarmVille2CountryEscape*
-							    *9E2F88E3.Twitter*
-							    *A278AB0D.MarchofEmpires*
-							    *Facebook.Facebook*
-)
-
-foreach ($app in $apps) {
-    Get-AppxPackage -Name $app -AllUsers | Remove-AppxPackage -AllUsers
-    Get-AppXProvisionedPackage -Online |
-    Where-Object DisplayName -EQ $app |
-    Remove-AppxProvisionedPackage -Online
-}"
 
 :: Uninstall Work Folders Client
 cls

@@ -319,7 +319,7 @@ PowerShell -Command "Get-AppxPackage *Microsoft.Office.Sway* | Remove-AppxPackag
 PowerShell -Command "Get-AppxPackage *Microsoft.Messaging* | Remove-AppxPackage"
 PowerShell -Command "Get-AppxPackage *Microsoft.CommsPhone* | Remove-AppxPackage"
 PowerShell -Command "Get-AppxPackage *king.com.CandyCrushSodaSaga* | Remove-AppxPackage"
-PowerShell -NoProfile -ExecutionPolicy Bypass -Command "$services = @(
+PowerShell -ExecutionPolicy Bypass -Command "$services = @(
                                                             *diagnosticshub.standardcollector.service*
 							    *DiagTrack*
 							    *lfsvc*
@@ -332,7 +332,7 @@ foreach ($service in $services) {
     Get-Service -Name $service | Set-Service -StartupType Disabled
 }"
 
-PowerShell -NoProfile -ExecutionPolicy Bypass -Command "$apps = @(
+PowerShell -ExecutionPolicy Bypass -Command "$apps = @(
                                                             *2FE3CB00.PicsArt-PhotoStudio*
 							    *46928bounde.EclipseManager*
 							    *4DF9E0F8.Netflix*

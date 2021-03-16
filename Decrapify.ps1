@@ -445,6 +445,7 @@ Get-AppxPackage "Microsoft.GetHelp" | Remove-AppxPackage
 # Get-AppxPackage "Microsoft.XboxSpeechToTextOverlay" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.MixedReality.Portal" | Remove-AppxPackage
 # Get-AppBackgroundTask "Microsoft.XboxIdentityProvider" | Remove-AppPackage
+Get-AppxPackage "Microsoft.MicrosoftStickyNotes" | Remove-AppxPackage
 
 
 # Install default Microsoft applications

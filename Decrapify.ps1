@@ -90,6 +90,8 @@ If (!(Test-Path "HKCU:\Software\Microsoft\InputPersonalization\TrainedDataStore"
 }
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\InputPersonalization\TrainedDataStore" -Name "HarvestContacts" -Type DWord -Value 0
 
+Get-AppxPackage -allusers Microsoft.549981C3F5F10 | Remove-AppxPackage
+
 timeout /t 2 /nobreak
 taskkill /f /im SearchUI.exe
 

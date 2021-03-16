@@ -314,29 +314,6 @@ PowerShell -Command "dism /online /Disable-Feature /FeatureName:WorkFolders-Clie
 cls
 PowerShell -Command "net accounts /maxpwage:0"
 
-:: Disabling One Drive
-cls
-echo.
-echo  :: Uninstalling OneDrive
-timeout /t 2 /nobreak > NUL
-
-set x64="%SYSTEMROOT%\SysWOW64\OneDriveSetup.exe"
- 
-taskkill /f /im OneDrive.exe > NUL 2>&1
-ping 127.0.0.1 -n 5 > NUL 2>&1
- 
-if exist %x64% (
-%x64% /uninstall
-) else (
-echo "OneDriveSetup.exe installer not found, skipping."
-)
-ping 127.0.0.1 -n 8 > NUL 2>&1
-
-rd "%USERPROFILE%\OneDrive" /Q /S > NUL 2>&1
-rd "C:\OneDriveTemp" /Q /S > NUL 2>&1
-rd "%LOCALAPPDATA%\Microsoft\OneDrive" /Q /S > NUL 2>&1
-rd "%PROGRAMDATA%\Microsoft OneDrive" /Q /S > NUL 2>&1
-
 cls
 echo.
 echo :: Removing OneDrive from the Explorer Side Panel.

@@ -90,6 +90,9 @@ If (!(Test-Path "HKCU:\Software\Microsoft\InputPersonalization\TrainedDataStore"
 }
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\InputPersonalization\TrainedDataStore" -Name "HarvestContacts" -Type DWord -Value 0
 
+timeout /t 2 /nobreak
+taskkill /f /im SearchUI.exe
+
 # Enable Cortana
 # Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Personalization\Settings" -Name "AcceptedPrivacyPolicy"
 # Set-ItemProperty -Path "HKCU:\Software\Microsoft\InputPersonalization" -Name "RestrictImplicitTextCollection" -Type DWord -Value 0
@@ -540,15 +543,15 @@ $services = @(
     "dmwappushservice"                         # WAP Push Message Routing Service (see known issues)
     "lfsvc"                                    # Geolocation Service
     "MapsBroker"                               # Downloaded Maps Manager
-    #"NetTcpPortSharing"                        # Net.Tcp Port Sharing Service
+    "NetTcpPortSharing"                        # Net.Tcp Port Sharing Service
     "RemoteAccess"                             # Routing and Remote Access
-    #"RemoteRegistry"                          # Remote Registry
+    "RemoteRegistry"                          # Remote Registry
     "SharedAccess"                             # Internet Connection Sharing (ICS)
     "TrkWks"                                   # Distributed Link Tracking Client
     "WbioSrvc"                                 # Windows Biometric Service (required for Fingerprint reader / facial detection)
     #"WMPNetworkSvc"                            # Windows Media Player Network Sharing Service
     "wscsvc"                                   # Windows Security Center Service
-    #"WSearch"                                 # Windows Search
+    "WSearch"                                 # Windows Search
     #"XblAuthManager"                           # Xbox Live Auth Manager
     #"XblGameSave"                              # Xbox Live Game Save Service
     #"XboxNetApiSvc"                            # Xbox Live Networking Service
